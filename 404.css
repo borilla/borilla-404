@@ -10,6 +10,7 @@ body {
 	background-image: url(http://borilla.co.uk/images/64-100-4-monochrome.png);
 	background-size: 256px;
 	background-position: calc(50% - 2px) 50%;
+	-ms-interpolation-mode: nearest-neighbor;
 	image-rendering: -moz-crisp-edges;
 	image-rendering: pixelated;
 	margin: 0;
@@ -22,8 +23,6 @@ body {
 	background-size: 196px 128px;
 	height: 128px;
 	width: 196px;
-	image-rendering: -moz-crisp-edges;
-	image-rendering: pixelated;
 	position: absolute;
 	bottom: 8px;
 	margin-left: -98px;
