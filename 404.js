@@ -1,5 +1,10 @@
-// generate noisy background
-(function () {
+(function (Math, document) {
+	var random = Math.random;
+
+	////////////////////////////////////////////////////////////////
+	// generate noisy background
+	////////////////////////////////////////////////////////////////
+
 	var COLOR_MIN = 12; // colour intensity for pixels
 	var COLOR_MAX = 32; // colour intensity for pixels
 	var AMOUNT = 0.5; // proportion of pixels to add noise to
@@ -24,9 +29,9 @@
 		var i, x, y, c;
 
 		for (i = 0; i < width * height * AMOUNT; ++i) {
-			x = Math.random() * width;
-			y = Math.random() * height;
-			c = Math.random() * (COLOR_MAX - COLOR_MIN) + COLOR_MIN;
+			x = random() * width;
+			y = random() * height;
+			c = random() * (COLOR_MAX - COLOR_MIN) + COLOR_MIN;
 
 			pixel[0] = pixel[1] = pixel[2] = c;
 			pixel[3] = 255;
@@ -38,10 +43,11 @@
 	var dataUrl = getNoiseDataUrl(64, 64);
 	console.log(dataUrl);
 	document.body.style.backgroundImage = 'url(' + dataUrl + ')';
-})();
 
-// animated kong canvas
-(function () {
+	////////////////////////////////////////////////////////////////
+	// animate kong canvas
+	////////////////////////////////////////////////////////////////
+
 	var leftSize = 25;
 	var rightSize = 24;
 	var topSize = 20;
@@ -80,7 +86,7 @@
 
 	function chooseRandomSegmentName() {
 		var keys = Object.keys(imageSegments);
-		var index = random(keys.length - 1);
+		var index = randomInt(keys.length - 1);
 		// ensure not the same as previous index
 		if (index >= prevIndex) {
 			index += 1;
@@ -93,7 +99,7 @@
 		var seg = imageSegments[name];
 
 		// prevent mouth from changing too frequently
-		if (name === 'mouth' && random(10)) {
+		if (name === 'mouth' && randomInt(10)) {
 			return;
 		}
 
@@ -118,7 +124,7 @@
 		context.drawImage(images[seg.imageIndex], x, y, w, h, x, y, w, h);
 	}
 
-	function random(max) {
-		return Math.floor(Math.random() * max);
+	function randomInt(max) {
+		return Math.floor(random() * max);
 	}
-})();
+})(Math, document);
