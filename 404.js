@@ -1,8 +1,4 @@
 (function () {
-	var imageUrls = [
-		'http://borilla.co.uk/images/kong/kong-1-noise.gif',
-		'http://borilla.co.uk/images/kong/kong-2-noise.gif'
-	];
 	var leftSize = 25;
 	var rightSize = 24;
 	var topSize = 20;
@@ -14,42 +10,17 @@
 		'right-leg': { x: leftSize, y: topSize, w: rightSize, h: bottomSize, imageIndex: 0 },
 		'mouth': { x: 15, y: 7, w: 19, h: 7, imageIndex: 0, noClear: true }
 	};
-	var canvas = document.querySelector('canvas.kong');
+	var images = document.querySelectorAll('.kong-img');
+	var canvas = document.querySelector('.kong-canvas');
 	var context = canvas.getContext('2d');
 	var timeout = null;
 	var prevIndex = 0;
-	var images; // will contain preloaded <img> elements
 
 	canvas.width = leftSize + rightSize;
 	canvas.height = topSize + bottomSize;
 
-	preloadImages(imageUrls, function (_images) {
-		images = _images;
-		initialiseCanvas();
-		swapAfterTimeout();
-	});
-
-	function preloadImages(imageUrls, onAllLoaded) {
-		var pending = 0;
-		var imgs = flattenArray(imageUrls).map(function (url) {
-			pending++;
-			return createImageElement(url);
-		});
-
-		function createImageElement(url) {
-			var img = document.createElement('img');
-			img.src = url;
-			img.onload = onImageLoaded;
-			return img;
-		}
-
-		function onImageLoaded() {
-			pending--;
-			if (pending === 0) {
-				onAllLoaded(imgs);
-			}
-		}
-	}
+	initialiseCanvas();
+	swapAfterTimeout();
 
 	function initialiseCanvas() {
 		canvas.classList.add('is-loaded');
@@ -106,11 +77,5 @@
 
 	function random(max) {
 		return Math.floor(Math.random() * max);
-	}
-
-	function flattenArray(arr) {
-		return arr.reduce(function (flat, toFlatten) {
-			return flat.concat(Array.isArray(toFlatten) ? flattenArray(toFlatten) : toFlatten);
-		}, []);
 	}
 })();
