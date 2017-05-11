@@ -16,14 +16,8 @@ body {
 	font-size: small;
 }
 
-.kong-img {
-	display: none;
-}
-
 /* for small page, scale kong to 4x */
-.kong-canvas {
-	background-image: url(http://borilla.co.uk/images/kong/kong-1-noise.gif);
-	background-size: 196px 128px;
+.kong {
 	height: 128px;
 	width: 196px;
 	position: absolute;
@@ -32,8 +26,8 @@ body {
 	left: 50%;
 }
 
-.kong-canvas.is-loaded {
-	background-image: none;
+.kong + .kong {
+	display: none;
 }
 
 header {
@@ -67,8 +61,7 @@ a {
 		min-height: 288px;
 	}
 
-	.kong-canvas {
-		background-size: 392px 256px;
+	.kong {
 		height: 256px;
 		width: 392px;
 		bottom: 16px;

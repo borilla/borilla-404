@@ -59,21 +59,24 @@
 		'right-leg': { x: leftSize, y: topSize, w: rightSize, h: bottomSize, imageIndex: 0 },
 		'mouth': { x: 15, y: 7, w: 19, h: 7, imageIndex: 0, noClear: true }
 	};
-	var images = document.querySelectorAll('.kong-img');
-	var canvas = document.querySelector('.kong-canvas');
+	var images = document.querySelectorAll('.kong');
+	var canvas = document.createElement('canvas');
 	var context = canvas.getContext('2d');
 	var timeout = null;
 	var prevIndex = 0;
-
-	canvas.width = leftSize + rightSize;
-	canvas.height = topSize + bottomSize;
 
 	initialiseCanvas();
 	swapAfterTimeout();
 
 	function initialiseCanvas() {
-		canvas.classList.add('is-loaded');
+		var parent = images[0].parentNode;
+		canvas.className = 'kong';
+		canvas.width = leftSize + rightSize;
+		canvas.height = topSize + bottomSize;
 		context.drawImage(images[0], 0, 0);
+		parent.removeChild(images[0]);
+		parent.removeChild(images[1]);
+		parent.appendChild(canvas);
 	}
 
 	function swapAfterTimeout() {
