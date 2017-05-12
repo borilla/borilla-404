@@ -62,19 +62,22 @@
 	var canvas = document.createElement('canvas');
 	var context = canvas.getContext('2d');
 	var timeout = null;
-	var prevIndex = 0;
+	var prevIndex = imageSegments.length;
 
 	initialiseCanvas();
 	swapAfterTimeout();
 
 	function initialiseCanvas() {
-		var parent = images[0].parentNode;
 		canvas.className = 'kong';
 		canvas.width = LEFT_SIZE + RIGHT_SIZE;
 		canvas.height = TOP_SIZE + BOTTOM_SIZE;
-		context.drawImage(images[0], 0, 0);
-		parent.replaceChild(canvas, images[0]);
-		parent.removeChild(images[1]);
+
+		setTimeout(function () {
+			var parent = images[0].parentNode;
+			parent.replaceChild(canvas, images[0]);
+			parent.removeChild(images[1]);
+			context.drawImage(images[0], 0, 0);
+		}, 0);
 	}
 
 	function swapAfterTimeout() {
