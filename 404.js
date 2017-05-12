@@ -39,9 +39,7 @@
 		}
 	}
 
-	var dataUrl = getNoiseDataUrl(64, 64);
-	console.log(dataUrl);
-	document.body.style.backgroundImage = 'url(' + dataUrl + ')';
+	document.body.style.backgroundImage = 'url(' + getNoiseDataUrl(64, 64) + ')';
 
 	////////////////////////////////////////////////////////////////
 	// animate kong canvas
@@ -64,20 +62,21 @@
 	var timeout = null;
 	var prevIndex = imageSegments.length;
 
-	initialiseCanvas();
-	swapAfterTimeout();
+	addEventListener('load', initialiseCanvas);
 
 	function initialiseCanvas() {
+		var image0 = images[0];
+		var parent = image0.parentNode;
+
 		canvas.className = 'kong';
 		canvas.width = LEFT_SIZE + RIGHT_SIZE;
 		canvas.height = TOP_SIZE + BOTTOM_SIZE;
 
-		setTimeout(function () {
-			var parent = images[0].parentNode;
-			parent.replaceChild(canvas, images[0]);
-			parent.removeChild(images[1]);
-			context.drawImage(images[0], 0, 0);
-		}, 0);
+		parent.replaceChild(canvas, image0);
+		parent.removeChild(images[1]);
+		context.drawImage(image0, 0, 0);
+
+		swapAfterTimeout();
 	}
 
 	function swapAfterTimeout() {
