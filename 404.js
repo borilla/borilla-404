@@ -5,10 +5,9 @@
 	// generate noisy background
 	////////////////////////////////////////////////////////////////
 
-	var COLOR_MIN = 12; // colour intensity for pixels
-	var COLOR_MAX = 32; // colour intensity for pixels
+	var COLOR_MIN = 12; // min colour intensity for pixels
+	var COLOR_MAX = 32; // max colour intensity for pixels
 	var AMOUNT = 0.5; // proportion of pixels to add noise to
-	var ALPHA = 16; // max alpha amount for noise
 
 	function getNoiseDataUrl(width, height) {
 		var canvas = document.createElement('canvas');
@@ -48,15 +47,15 @@
 	// animate kong canvas
 	////////////////////////////////////////////////////////////////
 
-	var leftSize = 25;
-	var rightSize = 24;
-	var topSize = 20;
-	var bottomSize = 12;
+	var LEFT_SIZE = 25;
+	var RIGHT_SIZE = 24;
+	var TOP_SIZE = 20;
+	var BOTTOM_SIZE = 12;
 	var imageSegments = {
-		'left-arm': { x: 0, y: 0, w: leftSize, h: topSize, imageIndex: 0 },
-		'right-arm': { x: leftSize, y: 0, w: rightSize, h: topSize, imageIndex: 0 },
-		'left-leg': { x: 0, y: topSize, w: leftSize, h: bottomSize, imageIndex: 0 },
-		'right-leg': { x: leftSize, y: topSize, w: rightSize, h: bottomSize, imageIndex: 0 },
+		'left-arm': { x: 0, y: 0, w: LEFT_SIZE, h: TOP_SIZE, imageIndex: 0 },
+		'right-arm': { x: LEFT_SIZE, y: 0, w: RIGHT_SIZE, h: TOP_SIZE, imageIndex: 0 },
+		'left-leg': { x: 0, y: TOP_SIZE, w: LEFT_SIZE, h: BOTTOM_SIZE, imageIndex: 0 },
+		'right-leg': { x: LEFT_SIZE, y: TOP_SIZE, w: RIGHT_SIZE, h: BOTTOM_SIZE, imageIndex: 0 },
 		'mouth': { x: 15, y: 7, w: 19, h: 7, imageIndex: 0, noClear: true }
 	};
 	var images = document.querySelectorAll('.kong');
@@ -71,12 +70,11 @@
 	function initialiseCanvas() {
 		var parent = images[0].parentNode;
 		canvas.className = 'kong';
-		canvas.width = leftSize + rightSize;
-		canvas.height = topSize + bottomSize;
+		canvas.width = LEFT_SIZE + RIGHT_SIZE;
+		canvas.height = TOP_SIZE + BOTTOM_SIZE;
 		context.drawImage(images[0], 0, 0);
-		parent.removeChild(images[0]);
+		parent.replaceChild(canvas, images[0]);
 		parent.removeChild(images[1]);
-		parent.appendChild(canvas);
 	}
 
 	function swapAfterTimeout() {
