@@ -1,3 +1,20 @@
+/*
+	initial image dimensions in pixels are
+		width: 49
+		height: 32
+		background: 64
+	for small screens we scale to 4x, ie
+		width: 196
+		height: 128
+		spacing: 8
+		background: 256
+	for large screens we scale to 8x, ie
+		width: 392
+		height: 256
+		spacing: 16
+		background: 512
+*/
+
 html {
 	height: 100%;
 }
@@ -14,20 +31,6 @@ body {
 	image-rendering: pixelated;
 	margin: 0;
 	font-size: small;
-}
-
-/* for small page, scale kong to 4x */
-.kong {
-	height: 128px;
-	width: 196px;
-	position: absolute;
-	bottom: 8px;
-	margin-left: -98px;
-	left: 50%;
-}
-
-.kong + .kong {
-	display: none;
 }
 
 header {
@@ -49,7 +52,19 @@ a {
 	color: cyan;
 }
 
-/* for large page, scale kong to 8x */
+.kong {
+	height: 128px;
+	width: 196px;
+	position: absolute;
+	bottom: 8px;
+	margin-left: -98px;
+	left: 50%;
+}
+
+.kong + .kong {
+	display: none;
+}
+
 @media (min-height: 576px) and (min-width: 460px) {
 	body {
 		background-size: 512px;
