@@ -1,5 +1,6 @@
 (function (Math, document) {
 	var random = Math.random;
+	var body = document.body;
 
 	////////////////////////////////////////////////////////////////
 	// generate noisy background
@@ -8,6 +9,8 @@
 	var COLOR_MIN = 12; // min colour intensity for pixels
 	var COLOR_MAX = 32; // max colour intensity for pixels
 	var AMOUNT = 0.5; // proportion of pixels to add noise to
+
+	body.style.backgroundImage = 'url(' + getNoiseDataUrl(64, 64) + ')';
 
 	function getNoiseDataUrl(width, height) {
 		var canvas = document.createElement('canvas');
@@ -25,21 +28,19 @@
 		var context = canvas.getContext('2d');
 		var imageData = context.createImageData(1, 1);
 		var pixel = imageData.data;
-		var i, x, y, c;
+		var i, l, x, y, c;
 
-		for (i = 0; i < width * height * AMOUNT; ++i) {
+		pixel[3] = 255;
+
+		for (i = 0, l = width * height * AMOUNT; i < l; ++i) {
 			x = random() * width;
 			y = random() * height;
 			c = random() * (COLOR_MAX - COLOR_MIN) + COLOR_MIN;
 
 			pixel[0] = pixel[1] = pixel[2] = c;
-			pixel[3] = 255;
-
 			context.putImageData(imageData, x, y);
 		}
 	}
-
-	document.body.style.backgroundImage = 'url(' + getNoiseDataUrl(64, 64) + ')';
 
 	////////////////////////////////////////////////////////////////
 	// animate kong canvas
@@ -61,8 +62,14 @@
 	var context = canvas.getContext('2d');
 	var timeout = null;
 	var prevIndex = imageSegments.length;
+	var pause = document.createElement('button');
 
 	addEventListener('load', initialiseCanvas);
+
+	pause.className = 'pause';
+	pause.addEventListener('click', toggleAnimation);
+	pause.textContent = 'Pause animation';
+	body.appendChild(pause);
 
 	function initialiseCanvas() {
 		var image0 = images[0];
@@ -125,6 +132,16 @@
 			context.clearRect(x, y, w, h);
 		}
 		context.drawImage(images[seg.imageIndex], x, y, w, h, x, y, w, h);
+	}
+
+	function toggleAnimation() {
+		if (timeout) {
+			clearTimeout(timeout);
+			timeout = null;
+		}
+		else {
+			swapAfterTimeout();
+		}
 	}
 
 	function randomInt(max) {

@@ -65,6 +65,23 @@ a {
 	display: none;
 }
 
+.pause {
+	background-color: transparent;
+	border-style: none;
+	bottom: 8px;
+	font-size: smaller;
+	right: 8px;
+	color: #444;
+	cursor: pointer;
+	display: block;
+	margin: 0;
+	outline: none;
+	padding: 0;
+	position: absolute;
+	text-align: center;
+	text-decoration: underline;
+}
+
 @media (min-height: 576px) and (min-width: 460px) {
 	body {
 		background-size: 512px;
