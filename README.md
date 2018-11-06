@@ -1,5 +1,5 @@
 # borilla-404
-Custom 404 page for http://borilla.co.uk, containing the following features
+Custom 404 page for [http://borilla.co.uk](http://borilla.co.uk/bollox.html), containing the following features
 
 ## Single http request
 
